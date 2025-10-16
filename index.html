@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="style.css" />
+    <title>Student Finance Tracker</title>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header>
+      <nav>
+        <ul class="mainNavbar">
+          <li><a href="#"><span class="heading">Finance Tracker</span></a></li>
+          <li class="hideOnMobile"><a href="#hero">About</a></li>
+          <li class="hideOnMobile"><a href="#cards">Dashboard</a></li>
+          <li class="hideOnMobile"><a href="#records">Transactions</a></li>
+          <li class="hideOnMobile"><a href="#edit">Add/Edit</a></li>
+          <li class="hideOnMobile"><a href="#settings">Settings</a></li>
+          <li class="menu-button"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#1f1f1f"><path d="M140-254.62v-59.99h680v59.99H140ZM140-450v-60h680v60H140Zm0-195.39v-59.99h680v59.99H140Z"/></svg></a></li>
+        </ul>
+        <ul class="sidebar">
+          <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
+          <li><a href="#hero">About</a></li>
+          <li><a href="#cards">Dashboard</a></li>
+          <li><a href="#records">Transactions</a></li>
+          <li><a href="#edit">Add/Edit</a></li>
+          <li><a href="#settings">Settings</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="generalInfo" id="hero">
+        <h1 class="heroTitle">Welcome to the Student Finance Tracker</h1>
+        <p class="heroParagraph1">Manage your finances! <br/>Stay on top of your budget!<br/>Easy-to-use finance tracker designed by students for students.</p>
+        <div class="Contact">
+          <p>Developer contacts:</p>
+          <p>Email: <a href="mailto:m.odhiambo@alustudent.com" target="_blank">m.odhiambo@alustudent.com</a></p>
+          <p>GitHub: <a href="https://www.github.com/Mich-O" target="_blank">github.com/Mich-O/finance-tracker</a></p>
+        </div>
+      </section>
+
+      <section class="visualStatistics" id="cards">
+        <h2>Financial Dashboard</h2>
+        <div class="stats-container">
+          <div class="stat-card">
+            <h3>Total Balance</h3>
+            <p class="amount" id="totalBalance">$0.00</p>
+          </div>
+          <div class="stat-card">
+            <h3>Monthly Budget</h3>
+            <p class="amount" id="monthlyBudget">$0.00</p>
+          </div>
+          <div class="stat-card">
+            <h3>Remaining</h3>
+            <p class="amount" id="remainingBudget">$0.00</p>
+          </div>
+          <div class="stat-card">
+            <h3>Top Category</h3>
+            <p class="amount" id="topCategory">-</p>
+          </div>
+        </div>
+        <div aria-live="polite" id="budgetAlert"></div>
+      </section>
+
+      <section class="newTransactionsOrChanges" id="edit">
+        <h2>Add Transaction</h2>
+        <form id="transactionForm">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" id="description" placeholder="Enter transaction description" required>
+            <div class="error-message" id="descriptionError"></div>
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" required>
+              <option value="">Select category</option>
+              <option value="Food">Food</option>
+              <option value="Books">Books</option>
+              <option value="Transport">Transport</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Fees">Fees</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="error-message" id="categoryError"></div>
+          </div>
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" step="0.01" placeholder="0.00" required>
+            <div class="error-message" id="amountError"></div>
+          </div>
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" required>
+            <div class="error-message" id="dateError"></div>
+          </div>
+          <button type="submit">Add Transaction</button>
+          <button type="button" id="cancelEdit" style="display: none;">Cancel Edit</button>
+        </form>
+      </section>
+
+      <section class="transactions-section" id="records">
+        <h2>Transactions</h2>
+        
+        <div class="controls">
+          <div class="search-box">
+            <label for="searchInput">Search Transactions:</label>
+            <input type="text" id="searchInput" placeholder="Enter regex pattern (e.g., /coffee|tea/i)">
+            <small>Try: /coffee|tea/i, /\.\d{2}$/, /\b(\w+)\s+\1\b/</small>
+          </div>
+          
+          <div class="sort-controls">
+            <label for="sortSelect">Sort by:</label>
+            <select id="sortSelect">
+              <option value="date-desc">Date (Newest)</option>
+              <option value="date-asc">Date (Oldest)</option>
+              <option value="amount-desc">Amount (High to Low)</option>
+              <option value="amount-asc">Amount (Low to High)</option>
+              <option value="description-asc">Description (A-Z)</option>
+              <option value="description-desc">Description (Z-A)</option>
+              <option value="category-asc">Category (A-Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th data-sort="date">Date</th>
+                <th data-sort="description">Description</th>
+                <th data-sort="category">Category</th>
+                <th data-sort="amount">Amount</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="transactionsTableBody">
+              <tr>
+                <td colspan="5" style="text-align: center;">No transactions yet. Add your first transaction above!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="settings" id="settings">
+        <h2>Settings</h2>
+        
+        <div class="settings-grid">
+            <div class="setting-group">
+                <h3>Currency Settings</h3>
+                <label for="baseCurrency">Base Currency</label>
+                <select id="baseCurrency">
+                    <option value="KES">Kenya Shillings (Ksh)</option>
+                    <option value="RWF">Rwandan Francs (RWF)</option>
+                    <option value="USD">US Dollars ($)</option>
+                </select>
+                
+                <label for="monthlyBudgetLimit">Monthly Budget Limit</label>
+                <input type="number" id="monthlyBudgetLimit" step="0.01" placeholder="20000.00">
+                
+                <h4>Exchange Rates (Based on KES)</h4>
+                <label for="kesToRwf">1 KES = ? RWF</label>
+                <input type="number" id="kesToRwf" step="0.01" placeholder="12.50">
+                
+                <label for="kesToUsd">1 KES = ? USD</label>
+                <input type="number" id="kesToUsd" step="0.01" placeholder="0.0078">
+                
+                <button type="button" id="saveSettings" class="save-button">Save Settings</button>
+        </div>
+
+          <div class="setting-group">
+            <h3>Data Management</h3>
+            <button type="button" id="exportData">Export Data as JSON</button>
+            <button type="button" id="importData">Import Data from JSON</button>
+            <input type="file" id="importFile" accept=".json" style="display: none;">
+            <button type="button" id="resetData" class="danger">Reset All Data</button>
+          </div>
+
+          <div class="setting-group">
+            <h3>Custom Categories</h3>
+            <div id="customCategories">
+              <!-- Custom categories will be added here -->
+            </div>
+            <div class="add-category">
+              <input type="text" id="newCategory" placeholder="New category name">
+              <button type="button" id="addCategory">Add Category</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2025 Student Finance Tracker. Accessible financial management for students.</p>
+    </footer>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>

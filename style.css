@@ -1,0 +1,368 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  min-height: 100vh;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+main{
+  flex: 1;
+}
+section{
+  border: solid black 1px;
+  padding: 30px;
+  max-width: 100%;
+}
+nav{
+  background-color: rgb(255, 255, 255);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+nav ul{
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+nav li{
+  height: 60px;
+}
+nav a{
+  height: 100%;
+  padding: 0 30px;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+}
+nav a:hover{
+  background-color: #f0f0f0;
+}
+nav li:first-child{
+  margin-right: auto;
+}
+.mainNavbar .heading{
+  font-weight: 1000;
+  font-style: oblique;
+  font-size: 24px;
+  color: rgb(15, 193, 202);
+}
+.sidebar{
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 250px;
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.sidebar li{
+  width: 100%;
+}
+.sidebar a{
+  width: 100%;
+}
+.menu-button{
+  display: none;
+}
+@media(max-width: 768px){
+  .hideOnMobile{
+    display: none;   
+  }
+  .menu-button{
+    display: block;   
+  }
+}
+@media(max-width: 360px){
+  .sidebar{
+    width: 100%;   
+  }
+}
+.generalInfo {
+  position: relative;
+  color: white;
+  padding: 120px 20px;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+}
+.generalInfo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/images/atlantic-money-9XrefmwkHCs-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7667;
+  z-index: -1;
+}
+.generalInfo .heroTitle {
+  font-size: 50px;
+  color: rgb(15, 193, 202);
+  margin-bottom: 20px;
+  margin-bottom: 40px;
+  font-family: cursive;
+}
+.generalInfo .heroParagraph1 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.generalInfo .Contact {
+  font-size: 16px;
+  margin-top: auto;
+}
+.generalInfo .Contact a {
+  color: rgb(45, 17, 109);
+  text-decoration: none;
+}
+footer{
+  background-color: #1f1f1f;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  width: 100%;
+  position: relative;
+}
+
+/* Transaction Form Styles */
+.form-group {
+  margin-bottom: 1rem;
+}
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+input, select, button {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 0.25rem 0;
+}
+button:hover {
+  background: #0056b3;
+}
+button.edit {
+  background: #28a745;
+}
+button.delete {
+  background: #dc3545;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+th {
+  background: #f8f9fa;
+  font-weight: bold;
+  cursor: pointer;
+}
+th:hover {
+  background: #e9ecef;
+}
+.search-box {
+  margin-bottom: 1rem;
+}
+
+/* Stats Cards */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.stat-card {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #dee2e6;
+}
+.stat-card h3 {
+  margin-bottom: 0.5rem;
+  color: #495057;
+}
+.amount {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.positive {
+  color: #28a745;
+}
+.negative {
+  color: #dc3545;
+}
+
+/* Settings */
+.settings-options {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.setting-group {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+}
+/* Accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #000;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 10000;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Search highlighting */
+.search-highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+/* Error messages */
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Budget alerts */
+.budget-alert {
+    padding: 0.75rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.budget-alert.exceeded {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.budget-alert.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.budget-alert.normal {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Messages */
+.message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem;
+    border-radius: 4px;
+    z-index: 1000;
+    max-width: 300px;
+}
+
+.message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Controls */
+.controls {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .controls {
+        grid-template-columns: 1fr 1fr;
+        align-items: end;
+    }
+}
+
+.search-box small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #666;
+    font-size: 0.75rem;
+}
+
+/* Settings grid */
+.settings-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .settings-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+.danger {
+    background-color: #dc3545;
+}
+
+.danger:hover {
+    background-color: #c82333;
+}
+
+/* Table responsive */
+.table-container {
+    overflow-x: auto;
+}
+
+/* Focus styles */
+button:focus,
+input:focus,
+select:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}

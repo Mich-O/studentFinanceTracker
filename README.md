@@ -11,6 +11,10 @@ https://mich-o.github.io/studentFinanceTracker/
 I used figma to make a low fidelity wireframe and published it on their site
 You can access it at https://save-duck-53582665.figma.site/
 
+## Demo Video
+A live testing of the website using loom
+url: https://www.loom.com/share/b9c6276240464ca68003cc5210e33835?sid=d247de80-eddf-45c0-aaf0-1b7b47eb9cba
+
 
 
 

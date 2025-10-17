@@ -141,21 +141,35 @@ Then open http://localhost:3000 in your browser.
 
 ## Data Model
 
-Transactions are stored as:
-
-javascript
+Transactions are stored in JSON files as:
     
     {
-     id: "txn_timestamp",
-     description: "Transaction description",
-     amount: -12.50, // Negative for expenses
-     category: "Food",
-     date: "2025-01-15",
-     createdAt: "ISO timestamp",
-     updatedAt: "ISO timestamp"
+     "transactions": [
+       {
+        id: "txn_timestamp",
+        description: "Transaction description",
+        amount: -12.50, // Negative for expenses to ensure the budget function works properly
+        category: "Food",
+        date: "2025-01-15",
+        createdAt: "ISO timestamp",
+        updatedAt: "ISO timestamp"
+        }
+      ]
+     "settings": {
+       "baseCurrency": "KES",
+       "monthlyBudgetLimit": 20000,
+       "customCategories": [],
+       "exchangeRates": {
+         "KES": 1,
+         "RWF": 12.5,
+         "USD": 0.0078
+        }
+       },
+    "exportDate": "2025-01-15T10:00:00.000Z"
     }
 
-
+If you want to import custom data, make sure your sample seed.json files should also follow the same format
+A sample seed.json file is available in the repository base folder.
 
 ## License
 

@@ -157,5 +157,7 @@ Educational project - feel free to use as reference.
 ## Contact
 
 Michael Odhiambo
+
 m.odhiambo@alustudent.com
-GitHub
+
+https://github.com/Mich-O

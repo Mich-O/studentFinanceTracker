@@ -26,6 +26,14 @@ export class UI {
                 this.handleSettingsSave();
             });
         }
+
+        // Add category button handler
+        const addCategoryBtn = document.getElementById('addCategory');
+        if (addCategoryBtn) {
+            addCategoryBtn.addEventListener('click', () => {
+                this.handleAddCategory();
+            });
+        }
     }
 
     handleFormSubmit(e) {
@@ -106,7 +114,7 @@ export class UI {
         displayTransactions = this.state.sortTransactions(displayTransactions, this.state.currentSort);
 
         if (displayTransactions.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No transactions found.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No transactions yet. Add your first transaction above!</td></tr>';
             return;
         }
 
@@ -153,6 +161,7 @@ export class UI {
             this.state.formatCurrency(stats.monthlyBudget);
         document.getElementById('remainingBudget').textContent = 
             this.state.formatCurrency(stats.remaining);
+        document.getElementById('totalTransactions').textContent = stats.totalTransactions;
         document.getElementById('topCategory').textContent = stats.topCategory;
         
         this.updateBudgetAlerts(stats.remaining);
@@ -225,6 +234,77 @@ export class UI {
         document.getElementById('monthlyBudgetLimit').value = this.state.settings.monthlyBudgetLimit;
         document.getElementById('kesToRwf').value = this.state.settings.exchangeRates.RWF;
         document.getElementById('kesToUsd').value = this.state.settings.exchangeRates.USD;
+        
+        // Update custom categories display
+        this.updateCustomCategoriesDisplay();
+    }
+
+    // Custom categories management
+    handleAddCategory() {
+        const newCategoryInput = document.getElementById('newCategory');
+        const categoryName = newCategoryInput.value.trim();
+        
+        if (!categoryName) {
+            this.showMessage('Please enter a category name', 'error');
+            return;
+        }
+        
+        if (!validators.validateCategory(categoryName)) {
+            this.showMessage('Category can only contain letters, spaces, and hyphens', 'error');
+            return;
+        }
+        
+        // Check for duplicates in default and custom categories
+        const defaultCategories = ['Food', 'Books', 'Transport', 'Entertainment', 'Fees', 'Other'];
+        const allCategories = [...defaultCategories, ...this.state.settings.customCategories];
+        
+        if (allCategories.includes(categoryName)) {
+            this.showMessage('Category already exists', 'error');
+            return;
+        }
+        
+        // Add to custom categories
+        this.state.settings.customCategories.push(categoryName);
+        this.state.save();
+        
+        // Update category dropdown and display
+        this.updateCategoryDropdown();
+        this.updateCustomCategoriesDisplay();
+        
+        newCategoryInput.value = '';
+        this.showMessage(`Category '${categoryName}' added successfully`);
+    }
+
+    updateCategoryDropdown() {
+        const categorySelect = document.getElementById('category');
+        const defaultCategories = ['Food', 'Books', 'Transport', 'Entertainment', 'Fees', 'Other'];
+        const allCategories = [...defaultCategories, ...this.state.settings.customCategories];
+        
+        // Save current value
+        const currentValue = categorySelect.value;
+        
+        // Rebuild dropdown
+        categorySelect.innerHTML = '<option value="">Select category</option>' +
+            allCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+        
+        // Restore current value if it still exists
+        if (allCategories.includes(currentValue)) {
+            categorySelect.value = currentValue;
+        }
+    }
+
+    updateCustomCategoriesDisplay() {
+        const customCategoriesContainer = document.getElementById('customCategories');
+        if (!customCategoriesContainer) return;
+        
+        if (this.state.settings.customCategories.length === 0) {
+            customCategoriesContainer.innerHTML = '<p>No custom categories added yet.</p>';
+        } else {
+            customCategoriesContainer.innerHTML = 
+                this.state.settings.customCategories.map(cat => 
+                    `<div class="category-tag">${cat}</div>`
+                ).join('');
+        }
     }
 
     // Event handlers
@@ -285,6 +365,14 @@ export class UI {
         document.getElementById('importFile').addEventListener('change', (e) => {
             if (e.target.files[0]) this.importData(e.target.files[0]);
         });
+
+        // Reset data button handler
+        const resetDataBtn = document.getElementById('resetData');
+        if (resetDataBtn) {
+            resetDataBtn.addEventListener('click', () => {
+                this.handleResetData();
+            });
+        }
     }
 
     // Data import/export
@@ -329,6 +417,32 @@ export class UI {
             }
         };
         reader.readAsText(file);
+    }
+
+    // Reset all data
+    handleResetData() {
+        if (confirm('Are you sure you want to reset all data? This will delete all transactions and reset settings to defaults. This action cannot be undone.')) {
+            // Clear transactions
+            this.state.transactions = [];
+            
+            // Reset settings to defaults
+            this.state.settings = {
+                baseCurrency: 'KES',
+                monthlyBudgetLimit: 20000,
+                customCategories: [],
+                exchangeRates: {
+                    KES: 1,
+                    RWF: 12.5,
+                    USD: 0.0078
+                }
+            };
+            
+            this.state.save();
+            this.renderTable();
+            this.updateDashboard();
+            this.updateSettingsUI();
+            this.showMessage('All data has been reset successfully');
+        }
     }
 
     // Sidebar and navigation

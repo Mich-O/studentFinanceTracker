@@ -83,6 +83,7 @@ export class AppState {
         const totalExpenses = this.transactions.reduce((sum, t) => sum + t.amount, 0);
         const monthlyBudget = this.settings.monthlyBudgetLimit || 0;
         const remaining = monthlyBudget + totalExpenses;
+        const totalTransactions = this.transactions.length;
         
         const categoryTotals = {};
         this.transactions.forEach(t => {
@@ -94,7 +95,7 @@ export class AppState {
                 categoryTotals[a] > categoryTotals[b] ? a : b)
             : 'None';
 
-        return { totalExpenses, monthlyBudget, remaining, topCategory };
+        return { totalExpenses, monthlyBudget, remaining, totalTransactions, topCategory };
     }
 
     // Currency formatting with conversion

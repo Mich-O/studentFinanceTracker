@@ -1,219 +1,161 @@
-Student Finance Tracker
-A responsive, accessible web application for students to manage their finances with advanced regex validation, currency conversion, and local data persistence.
+# Student Finance Tracker
 
-🚀 Features
-Core Functionality
-Transaction Management: Add, edit, delete financial transactions
+ A clean, responsive web application for students to track expenses, manage budgets, and monitor spending habits. Built with vanilla JavaScript, featuring advanced regex      validation and multi-currency support.
 
-Budget Tracking: Set monthly budget limits with visual alerts
+## Live Demo:
 
-Currency Support: KES (Kenya Shillings), RWF (Rwandan Francs), USD with manual exchange rates
+https://mich-o.github.io/studentFinanceTracker/
+
+## Features
+
+Expense Tracking: Add, edit, and delete transactions with categories
+
+Budget Management: Set monthly limits with visual alerts
+
+Multi-Currency: Support for KES, RWF, and USD with manual exchange rates
 
 Advanced Search: Regex-powered search with pattern highlighting
 
-Data Persistence: LocalStorage with JSON import/export
+Data Persistence: Local storage with JSON import/export
 
-Responsive Design: Mobile-first layout with sidebar navigation
+Mobile-First: Responsive design with sidebar navigation
 
-Regex Validation & Search
-Description: /^\S(?:.*\S)?$/ - No leading/trailing spaces
+Accessibility: Full keyboard navigation and screen reader support
 
-Amount: /^(0|[1-9]\d*)(\.\d{1,2})?$/ - Positive numbers with 2 decimal places
 
-Date: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/ - YYYY-MM-DD format
+## Quick Start
 
-Category: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/ - Letters, spaces, hyphens
+1. Visit the live demo
 
-Advanced: /\b(\w+)\s+\1\b/ - Duplicate word detection
+2. Add your first transaction using the form
 
-Search Patterns Examples
-Find cents: /\.\d{2}\b/
+3. Set your monthly budget in Settings
 
-Beverage keywords: /(coffee|tea)/i
+4. Monitor your spending in the Dashboard
 
-Duplicate words: /\b(\w+)\s+\1\b/
+   
+## Project Structure
 
-📁 Project Structure
-text
-finance-tracker/
-├── index.html              # Main HTML file
-├── style.css               # Styles and responsive design
-├── scripts/                # Modular JavaScript
-│   ├── main.js            # App orchestration
-│   ├── storage.js         # LocalStorage operations
-│   ├── state.js           # Business logic & state management
-│   ├── validator.js       # Regex validation & utilities
-│   └── ui.js              # DOM manipulation & event handling
-├── assets/
-│   ├── images/
-│   │   └── atlantic-money-9XrefmwkHCs-unsplash.jpg
-│   ├── icons/             # SVG icons for UI
-│   └── seed.json          # Sample transaction data
-└── README.md
-🛠️ Installation & Setup
-Clone or download the project files
 
-Serve locally using one of these methods:
+    studentFinanceTracker/
+    ├── index.html
+    ├── style.css
+    ├── scripts/
+    │   ├── main.js
+    │   ├── storage.js
+    │   ├── state.js
+    │   ├── validator.js
+    │   └── ui.js
+    ├── assets/
+    │   ├── images/
+    │   ├── icons/
+    │   
+    └── README.md
+    └── seed.json
 
-bash
-# Python 3
-python -m http.server 3000
+## Usage
 
-# Node.js (http-server)
-npx http-server -p 3000
+### Adding Transactions
+Fill out the form with:
 
-# PHP
-php -S localhost:3000
-Open http://localhost:3000 in your browser
+Description (text input)
 
-⌨️ Keyboard Navigation
-Tab: Navigate between interactive elements
+Category (select from predefined options)
 
-Enter/Space: Activate buttons and form controls
+Amount (positive number)
 
-Escape: Close sidebar (mobile)
+Date (YYYY-MM-DD format)
 
-Arrow keys: Navigate dropdown menus
 
-♿ Accessibility Features
-Semantic HTML: Proper heading structure and landmarks
+## Budget Alerts
+Green: Budget is healthy
 
-ARIA Live Regions: Dynamic budget alerts and status messages
+Yellow: Less than 10% remaining
 
-Keyboard Navigation: Full keyboard support
+Red: Budget exceeded
 
-Focus Management: Visible focus indicators
 
-Skip Links: "Skip to main content" for screen readers
+## Currency Conversion
+Set exchange rates in Settings:
 
-Color Contrast: WCAG compliant color ratios
+1 KES = ? RWF
 
-💰 Currency Configuration
-Default Exchange Rates
-KES: 1 (base currency)
+1 KES = ? USD
 
-RWF: 12.5 (1 KES = 12.5 RWF)
+All amounts are stored in KES and converted for display.
 
-USD: 0.0078 (1 KES = 0.0078 USD)
 
-Manual Configuration
-Update exchange rates in Settings:
+## Search Features
+Use regex patterns to search transactions:
 
-Navigate to Settings section
+/coffee|tea/i - Find coffee or tea expenses
 
-Enter current exchange rates
+/\.\d{2}$/ - Find transactions with cents
 
-Click "Save Settings"
+/\b(\w+)\s+\1\b/ - Find duplicate words in descriptions
 
-📊 Data Model
+
+## Technical Details
+Validation Rules
+Description: No leading/trailing spaces
+
+Amount: Positive numbers with up to 2 decimal places
+
+Date: Valid YYYY-MM-DD format
+
+Category: Letters, spaces, and hyphens only
+
+
+## Browser Support
+
+Works in modern browsers with:
+
+ES6 module support
+
+LocalStorage API
+
+CSS Grid/Flexbox
+
+
+## Development
+To run locally:
+
+
+# bash
+
+### Using Python
+    python -m http.server 3000
+
+### Using Node.js
+    npx http-server -p 3000
+Then open http://localhost:3000 in your browser.
+
+
+## Data Model
+
+Transactions are stored as:
+
 javascript
-{
-  "id": "txn_123456789",
-  "description": "Lunch at cafeteria",
-  "amount": -12.50,  // Negative for expenses
-  "category": "Food",
-  "date": "2025-01-15",
-  "createdAt": "2025-01-15T10:00:00.000Z",
-  "updatedAt": "2025-01-15T10:00:00.000Z"
-}
-🔧 Technical Implementation
-Modular Architecture
-storage.js: Data persistence layer
+    
+    {
+     id: "txn_timestamp",
+     description: "Transaction description",
+     amount: -12.50, // Negative for expenses
+     category: "Food",
+     date: "2025-01-15",
+     createdAt: "ISO timestamp",
+     updatedAt: "ISO timestamp"
+    }
 
-state.js: Business logic and application state
+           
 
-validator.js: Regex validation and utilities
 
-ui.js: DOM manipulation and event handling
+## License
 
-main.js: Application orchestration
+Educational project - feel free to use as reference.
 
-Browser Compatibility
-Modern browsers with ES6 module support
+## Contact
 
-LocalStorage required for data persistence
-
-CSS Grid and Flexbox for layout
-
-🎯 Usage Guide
-Adding Transactions
-Navigate to "Add/Edit" section
-
-Fill in description, category, amount, and date
-
-Submit form (auto-validates with regex)
-
-Managing Budget
-Set monthly budget in Settings
-
-Monitor "Remaining Budget" in Dashboard
-
-Receive alerts when budget is low or exceeded
-
-Searching Transactions
-Use regex patterns in search box
-
-Try example patterns provided
-
-Matches are highlighted in results
-
-Data Management
-Export: Download JSON backup
-
-Import: Upload valid JSON file
-
-Validation: Imported data is validated for structure
-
-🐛 Troubleshooting
-Common Issues
-"Finance Tracker not loading": Check browser console for module errors
-
-"Invalid regex pattern": Use valid regex syntax or try example patterns
-
-"Data not saving": Ensure LocalStorage is enabled in browser
-
-"Currency conversion not working": Verify exchange rates in Settings
-
-Debug Mode
-Open browser console to see:
-
-Module loading status
-
-Form submission data
-
-Error messages and warnings
-
-📝 Development Notes
-Regex Implementation
-Safe regex compilation with error handling
-
-Pattern highlighting without breaking accessibility
-
-Client-side validation with immediate feedback
-
-Responsive Breakpoints
-Mobile: ≤ 768px (sidebar navigation)
-
-Tablet: 769px - 1024px
-
-Desktop: ≥ 1025px (horizontal navigation)
-
-Performance Considerations
-Debounced search input
-
-Efficient DOM updates
-
-Minimal re-renders with state management
-
-📄 License
-This project is for educational purposes as part of a web development curriculum.
-
-👥 Developer
 Michael Odhiambo
-
-Email: m.odhiambo@alustudent.com
-
-GitHub: https://github.com/Mich-O/studentFinanceTracker.git
-
-Built with vanilla HTML, CSS, and JavaScript
-No frameworks • Mobile-first • Accessible • Responsive
+m.odhiambo@alustudent.com
+GitHub

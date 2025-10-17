@@ -6,7 +6,15 @@
 
 https://mich-o.github.io/studentFinanceTracker/
 
-## Features
+## Wireframes
+
+I used figma to make a low fidelity wireframe and published it on their site
+You can access it at https://save-duck-53582665.figma.site/
+
+
+
+
+# Features
 
 Expense Tracking: Add, edit, and delete transactions with categories
 
@@ -147,7 +155,6 @@ javascript
      updatedAt: "ISO timestamp"
     }
 
-           
 
 
 ## License
